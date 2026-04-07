@@ -9,6 +9,6 @@ interface CatApiService {
     suspend fun getCats(
         @Query("mime_types") mime: String = "gif",
         @Query("order") order: String = "random",
-        @Query("limit") limit: Int = 1
+        @Query("limit") limit: Int = 10
     ): List<CatResponse>
 }
