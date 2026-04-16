@@ -62,13 +62,19 @@ fun CatApp()
         fetchCats()
     }
     LazyColumn {
-        items(cats) { cat ->
+        itemsIndexed(cats) { index, cat ->
+
             AsyncImage(
                 model = cat.url,
                 contentDescription = null
             )
 
+            if (index >= cats.size - 2 && !isLoading) {
+                LaunchedEffect(Unit) {
+                    fetchCats()
+                }
             }
         }
+    }
 
 }
