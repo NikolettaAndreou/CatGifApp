@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.lazy.itemsIndexed
+
 
 class MainActivity : ComponentActivity()
 {
@@ -16,7 +18,7 @@ class MainActivity : ComponentActivity()
     {
         super.onCreate(savedInstanceState)
 
-        setContent
+        setContent()
         {
             CatApp()
         }
@@ -57,11 +59,18 @@ fun CatApp()
         fetchCats()
     }
     LazyColumn {
-        items(cats) { cat ->
+        itemsIndexed(cats) { index, cat ->
+
             AsyncImage(
                 model = cat.url,
                 contentDescription = null
             )
+
+            if (index >= cats.size - 2 && !isLoading) {
+                LaunchedEffect(Unit) {
+                    fetchCats()
+                }
+            }
         }
     }
 }
