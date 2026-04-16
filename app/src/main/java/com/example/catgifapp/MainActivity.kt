@@ -9,7 +9,8 @@ import androidx.compose.runtime.*
 import coil.compose.AsyncImage
 
 class MainActivity : ComponentActivity() {
-
+    private var currentPage = 0
+    private var selectedType = "gif" // default
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
