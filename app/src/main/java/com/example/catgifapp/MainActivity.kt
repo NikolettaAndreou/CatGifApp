@@ -24,5 +24,14 @@ class MainActivity : ComponentActivity()
 @Composable
 fun CatApp()
 {
+    var cats by remember { mutableStateOf(listOf<CatResponse>()) }
 
+    LazyColumn {
+        items(cats) { cat ->
+            AsyncImage(
+                model = cat.url,
+                contentDescription = null
+            )
+        }
+    }
 }
