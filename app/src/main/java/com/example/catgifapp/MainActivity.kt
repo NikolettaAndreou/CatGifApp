@@ -13,9 +13,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
+
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+
 
 
 class MainActivity : ComponentActivity()
@@ -47,6 +49,7 @@ fun CatApp()
             try {
                 isLoading = true
 
+
                 val result = RetrofitInstance.api.getCats(
                     limit = 10,
                     page = currentPage,
@@ -65,39 +68,43 @@ fun CatApp()
     }
 
 
-    LaunchedEffect(Unit) {
-        fetchCats()
-    }
+
     LaunchedEffect(selectedType) {
+        var isResetting = true
+        currentPage = 0
+        cats = emptyList()
         fetchCats()
+        isResetting=false
     }
+
     Column {
 
 
         Row {
             Button(onClick = {
-                selectedType = "gif"
-                currentPage = 0
-                cats = emptyList()
+                if (selectedType != "gif") {
+                    selectedType = "gif"
+                }
             }) {
                 Text("GIFs")
             }
 
             Button(onClick = {
-                selectedType = "jpg"
-                currentPage = 0
-                cats = emptyList()
+                if (selectedType != "jpg") {
+                    selectedType = "jpg"
+                }
             }) {
                 Text("Images")
             }
 
             Button(onClick = {
-                selectedType = "gif,jpg,png"
-                currentPage = 0
-                cats = emptyList()
+                if (selectedType != "gif,jpg,png") {
+                    selectedType = "gif,jpg,png"
+                }
             }) {
                 Text("Both")
             }
+
         }
 
         LazyColumn (
@@ -113,7 +120,7 @@ fun CatApp()
                         .height(250.dp)
                 )
 
-                if (index >= cats.size - 2 && !isLoading) {
+                if (index >= cats.size - 2 && !isLoading && cats.isNotEmpty()) {
                     LaunchedEffect(index) {
                         fetchCats()
                     }
