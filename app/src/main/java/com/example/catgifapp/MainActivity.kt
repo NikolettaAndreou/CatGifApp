@@ -76,7 +76,6 @@ fun CatApp()
                 selectedType = "gif"
                 currentPage = 0
                 cats = emptyList()
-                fetchCats()
             }) {
                 Text("GIFs")
             }
@@ -85,7 +84,6 @@ fun CatApp()
                 selectedType = "jpg"
                 currentPage = 0
                 cats = emptyList()
-                fetchCats()
             }) {
                 Text("Images")
             }
@@ -94,7 +92,6 @@ fun CatApp()
                 selectedType = "gif,jpg,png"
                 currentPage = 0
                 cats = emptyList()
-                fetchCats()
             }) {
                 Text("Both")
             }
