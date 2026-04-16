@@ -32,7 +32,7 @@ fun CatApp()
     val scope = rememberCoroutineScope()
     var currentPage by remember { mutableStateOf(0) }
     var isLoading by remember { mutableStateOf(false) }
-
+    var selectedType by remember { mutableStateOf("gif") }
     fun fetchCats() {
         if (isLoading) return
 
@@ -43,7 +43,7 @@ fun CatApp()
                 val result = RetrofitInstance.api.getCats(
                     limit = 10,
                     page = currentPage,
-                    mimeTypes = "gif"
+                    mimeTypes = selectedType
                 )
 
                 cats = cats + result
