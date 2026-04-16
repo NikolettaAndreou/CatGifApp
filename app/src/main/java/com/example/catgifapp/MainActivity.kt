@@ -8,32 +8,21 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import coil.compose.AsyncImage
 
-class MainActivity : ComponentActivity() {
-    private var currentPage = 0
-    private var selectedType = "gif" // default
-    override fun onCreate(savedInstanceState: Bundle?) {
+class MainActivity : ComponentActivity()
+{
+
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
 
-        setContent {
-
-            var cats by remember { mutableStateOf(listOf<CatResponse>()) }
-
-            LaunchedEffect(Unit) {
-                try {
-                    cats = RetrofitInstance.api.getCats()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-            LazyColumn {
-                items(cats) { cat ->
-                    AsyncImage(
-                        model = cat.url,
-                        contentDescription = null
-                    )
-                }
-            }
+        setContent
+        {
+            CatApp()
         }
     }
+}
+@Composable
+fun CatApp()
+{
+
 }
