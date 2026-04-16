@@ -68,6 +68,9 @@ fun CatApp()
     LaunchedEffect(Unit) {
         fetchCats()
     }
+    LaunchedEffect(selectedType) {
+        fetchCats()
+    }
     Column {
 
 
