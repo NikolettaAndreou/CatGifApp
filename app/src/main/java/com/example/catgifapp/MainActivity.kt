@@ -3,12 +3,15 @@ package com.example.catgifapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 
 
 class MainActivity : ComponentActivity()
@@ -61,17 +64,50 @@ fun CatApp()
     LaunchedEffect(Unit) {
         fetchCats()
     }
-    LazyColumn {
-        itemsIndexed(cats) { index, cat ->
+    Column {
 
-            AsyncImage(
-                model = cat.url,
-                contentDescription = null
-            )
+        // 🔘 ADD YOUR BUTTONS HERE
+        Row {
+            Button(onClick = {
+                selectedType = "gif"
+                currentPage = 0
+                cats = emptyList()
+                fetchCats()
+            }) {
+                Text("GIFs")
+            }
 
-            if (index >= cats.size - 2 && !isLoading) {
-                LaunchedEffect(Unit) {
-                    fetchCats()
+            Button(onClick = {
+                selectedType = "jpg,png"
+                currentPage = 0
+                cats = emptyList()
+                fetchCats()
+            }) {
+                Text("Images")
+            }
+
+            Button(onClick = {
+                selectedType = "gif,jpg,png"
+                currentPage = 0
+                cats = emptyList()
+                fetchCats()
+            }) {
+                Text("Both")
+            }
+        }
+
+        LazyColumn {
+            itemsIndexed(cats) { index, cat ->
+
+                AsyncImage(
+                    model = cat.url,
+                    contentDescription = null
+                )
+
+                if (index >= cats.size - 2 && !isLoading) {
+                    LaunchedEffect(index) {
+                        fetchCats()
+                    }
                 }
             }
         }
