@@ -33,27 +33,21 @@ fun CatApp()
     var currentPage by remember { mutableStateOf(0) }
     var isLoading by remember { mutableStateOf(false) }
 
-    fun fetchCats() {
-        if (isLoading) return
 
+    fun fetchCats() {
         scope.launch {
             try {
-                isLoading = true
-
-                val result = RetrofitInstance.api.getCats(
+                cats = RetrofitInstance.api.getCats(
                     limit = 10,
-                    page = currentPage,
+                    page = 0,
                     mimeTypes = "gif"
                 )
-                cats = cats + result
-                currentPage++
             } catch (e: Exception) {
                 e.printStackTrace()
-            } finally {
-                isLoading = false
             }
         }
     }
+
 
     LaunchedEffect(Unit) {
         fetchCats()
