@@ -5,10 +5,10 @@ import retrofit2.http.Query
 
 interface CatApiService {
 
-    @GET("v1/images/search")
+    @GET("images/search")
     suspend fun getCats(
-        @Query("mime_types") mime: String = "gif",
-        @Query("order") order: String = "random",
-        @Query("limit") limit: Int = 10
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("mime_types") mimeTypes: String
     ): List<CatResponse>
 }
