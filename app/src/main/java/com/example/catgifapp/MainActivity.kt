@@ -10,8 +10,12 @@ import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 
 class MainActivity : ComponentActivity()
@@ -66,7 +70,7 @@ fun CatApp()
     }
     Column {
 
-        // 🔘 ADD YOUR BUTTONS HERE
+
         Row {
             Button(onClick = {
                 selectedType = "gif"
@@ -78,7 +82,7 @@ fun CatApp()
             }
 
             Button(onClick = {
-                selectedType = "jpg,png"
+                selectedType = "jpg"
                 currentPage = 0
                 cats = emptyList()
                 fetchCats()
@@ -96,12 +100,17 @@ fun CatApp()
             }
         }
 
-        LazyColumn {
+        LazyColumn (
+            modifier = Modifier.weight(1f)
+        ){
             itemsIndexed(cats) { index, cat ->
 
                 AsyncImage(
                     model = cat.url,
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
                 )
 
                 if (index >= cats.size - 2 && !isLoading) {
